@@ -21,7 +21,11 @@ def whoIsWinner():
 # tie
 def isTie():
     if whoIsWinner() == None and isFinished() == True:
-        return "Tie"
+        return True
+    else:
+        return False
+
+
 
 
 
@@ -38,7 +42,7 @@ def isFinished():
     else:
         return True
 
-print isFinished()
+
 
 
 
@@ -65,16 +69,36 @@ def printBoard():
         print "-----"
         print "|".join(l)
 
+round_no = 0
+while isFinished() == False:
+    printBoard()
+    print 'Round:', round_no
+    row_loc = int(raw_input('Which row?'))
+    col_loc = int(raw_input('Which column?'))
+    if board[row_loc][col_loc] != 0:
+        print 'Please choose another cell'
+        continue
+    if round_no %2 == 0:
+        board[row_loc][col_loc] = 1
+    else:
+        board[row_loc][col_loc] = 2
+    round_no += 1
+    if whoIsWinner() != None:
+        printBoard()
+        print 'The winner is player no.', whoIsWinner()
+        break
+    if isTie() == True:
+        printBoard()
+        print 'There is a tie'
+        break
 
-printBoard()
+
+
+
+
+
+
 
 
 
 # interaction with a user
-
-row_loc = int(raw_input('Which row?'))
-col_loc = int(raw_input('Which column?'))
-
-board[row_loc][col_loc] = 1
-
-printBoard()
